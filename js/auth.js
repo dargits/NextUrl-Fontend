@@ -1,49 +1,200 @@
 /* ============================================
    AUTH MODULE — Xử lý đăng nhập/đăng ký/logout
-   Token lưu tại localStorage
+   Token lưu tại localStorage với fallback
    ============================================ */
 
 const TOKEN_KEY = 'linkshort_token';
 const USER_KEY = 'linkshort_user';
 
+// Kiểm tra localStorage support
+function isLocalStorageAvailable() {
+  try {
+    const test = '__localStorage_test__';
+    localStorage.setItem(test, test);
+    localStorage.removeItem(test);
+    return true;
+  } catch (e) {
+    console.warn('localStorage is not available:', e);
+    return false;
+  }
+}
+
+// Kiểm tra sessionStorage support
+function isSessionStorageAvailable() {
+  try {
+    const test = '__sessionStorage_test__';
+    sessionStorage.setItem(test, test);
+    sessionStorage.removeItem(test);
+    return true;
+  } catch (e) {
+    console.warn('sessionStorage is not available:', e);
+    return false;
+  }
+}
+
+// Log storage availability khi load
+console.log('Storage availability:', {
+  localStorage: isLocalStorageAvailable(),
+  sessionStorage: isSessionStorageAvailable()
+});
+
 /* --- Token management --- */
 
 /** Lấy token từ localStorage */
 function getToken() {
-  return localStorage.getItem(TOKEN_KEY);
+  try {
+    // Thử lấy từ localStorage trước
+    let token = localStorage.getItem(TOKEN_KEY);
+    
+    if (!token) {
+      // Fallback: thử lấy từ sessionStorage
+      token = sessionStorage.getItem(TOKEN_KEY);
+      console.log('Token retrieved from sessionStorage fallback');
+    }
+    
+    if (!token) {
+      // Fallback cuối: lấy từ memory
+      token = window.tempToken;
+      console.log('Token retrieved from memory fallback');
+    }
+    
+    return token;
+  } catch (error) {
+    console.error('Error retrieving token:', error);
+    
+    // Thử fallback methods
+    try {
+      return sessionStorage.getItem(TOKEN_KEY) || window.tempToken || null;
+    } catch (fallbackError) {
+      console.error('All token retrieval methods failed:', fallbackError);
+      return null;
+    }
+  }
 }
 
 /** Lưu token vào localStorage */
 function setToken(token) {
-  localStorage.setItem(TOKEN_KEY, token);
+  try {
+    localStorage.setItem(TOKEN_KEY, token);
+    
+    // Debug: Kiểm tra token có được lưu thành công không
+    const saved = localStorage.getItem(TOKEN_KEY);
+    console.log('Token set:', token);
+    console.log('Token saved successfully:', saved === token);
+    
+    if (saved !== token) {
+      console.error('Failed to save token to localStorage');
+      // Fallback: thử lưu vào sessionStorage
+      sessionStorage.setItem(TOKEN_KEY, token);
+      console.log('Token saved to sessionStorage as fallback');
+    }
+  } catch (error) {
+    console.error('Error saving token to localStorage:', error);
+    // Fallback: lưu vào sessionStorage
+    try {
+      sessionStorage.setItem(TOKEN_KEY, token);
+      console.log('Token saved to sessionStorage as fallback');
+    } catch (fallbackError) {
+      console.error('Error saving token to sessionStorage:', fallbackError);
+      // Fallback cuối: lưu vào memory (mất khi refresh)
+      window.tempToken = token;
+      console.log('Token saved to memory as last fallback');
+    }
+  }
 }
 
 /** Xoá token */
 function removeToken() {
-  localStorage.removeItem(TOKEN_KEY);
+  try {
+    localStorage.removeItem(TOKEN_KEY);
+  } catch (error) {
+    console.error('Error removing token from localStorage:', error);
+  }
+  
+  try {
+    sessionStorage.removeItem(TOKEN_KEY);
+  } catch (error) {
+    console.error('Error removing token from sessionStorage:', error);
+  }
+  
+  // Clear memory fallback
+  if (window.tempToken) {
+    delete window.tempToken;
+  }
 }
 
 /* --- User info management --- */
 
 /** Lấy thông tin user (đã parse) */
 function getUserInfo() {
-  const data = localStorage.getItem(USER_KEY);
-  if (!data) return null;
   try {
-    return JSON.parse(data);
-  } catch {
-    return null;
+    let data = localStorage.getItem(USER_KEY);
+    
+    if (!data) {
+      // Fallback: sessionStorage
+      data = sessionStorage.getItem(USER_KEY);
+    }
+    
+    if (!data && window.tempUser) {
+      // Fallback: memory
+      return window.tempUser;
+    }
+    
+    if (!data) return null;
+    
+    try {
+      return JSON.parse(data);
+    } catch {
+      return null;
+    }
+  } catch (error) {
+    console.error('Error retrieving user info:', error);
+    return window.tempUser || null;
   }
 }
 
 /** Lưu thông tin user */
 function setUserInfo(user) {
-  localStorage.setItem(USER_KEY, JSON.stringify(user));
+  try {
+    const userData = JSON.stringify(user);
+    localStorage.setItem(USER_KEY, userData);
+    
+    // Kiểm tra có lưu được không
+    const saved = localStorage.getItem(USER_KEY);
+    if (!saved) {
+      // Fallback: sessionStorage
+      sessionStorage.setItem(USER_KEY, userData);
+    }
+  } catch (error) {
+    console.error('Error saving user info:', error);
+    // Fallback: sessionStorage
+    try {
+      sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+    } catch (fallbackError) {
+      console.error('Error saving user info to sessionStorage:', fallbackError);
+      window.tempUser = user;
+    }
+  }
 }
 
 /** Xoá thông tin user */
 function removeUserInfo() {
-  localStorage.removeItem(USER_KEY);
+  try {
+    localStorage.removeItem(USER_KEY);
+  } catch (error) {
+    console.error('Error removing user info from localStorage:', error);
+  }
+  
+  try {
+    sessionStorage.removeItem(USER_KEY);
+  } catch (error) {
+    console.error('Error removing user info from sessionStorage:', error);
+  }
+  
+  // Clear memory fallback
+  if (window.tempUser) {
+    delete window.tempUser;
+  }
 }
 
 /* --- Auth checks --- */
@@ -133,3 +284,38 @@ function updateNavbar() {
     `;
   }
 }
+
+// Debug functions - có thể gọi từ console
+window.debugAuth = {
+  checkStorageSupport: function() {
+    console.log('localStorage available:', isLocalStorageAvailable());
+    console.log('sessionStorage available:', isSessionStorageAvailable());
+  },
+  
+  testTokenStorage: function() {
+    const testToken = 'test_token_' + Date.now();
+    console.log('Testing token storage...');
+    
+    setToken(testToken);
+    const retrieved = getToken();
+    
+    console.log('Test token:', testToken);
+    console.log('Retrieved token:', retrieved);
+    console.log('Storage test:', testToken === retrieved ? 'PASSED' : 'FAILED');
+    
+    // Clean up
+    removeToken();
+  },
+  
+  getCurrentToken: function() {
+    const token = getToken();
+    console.log('Current token:', token);
+    return token;
+  },
+  
+  getCurrentUser: function() {
+    const user = getUserInfo();
+    console.log('Current user:', user);
+    return user;
+  }
+};

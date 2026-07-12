@@ -319,6 +319,9 @@ function initLoginPage() {
       const response = await loginUser({ account, password });
 
       if (response.code === 200) {
+        // Debug: Log response để kiểm tra
+        console.log('Login response:', response);
+        
         // Lưu token
         let token = '';
         if (typeof response.data === 'string') {
@@ -328,7 +331,13 @@ function initLoginPage() {
         } else if (response.token) {
           token = response.token;
         }
+        
+        console.log('Extracted token:', token);
         setToken(token);
+        
+        // Kiểm tra token có được lưu thành công không
+        const savedToken = getToken();
+        console.log('Token check after save:', savedToken === token ? 'SUCCESS' : 'FAILED');
 
         // Lưu user info nếu có
         if (response.data && typeof response.data === 'object') {
