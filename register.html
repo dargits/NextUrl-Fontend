@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng ký — NextUrl</title>
+  <meta name="description" content="Tạo tài khoản NextUrl miễn phí để quản lý và theo dõi link rút gọn.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-page="register">
+  <div class="page-wrapper">
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+      <div class="container">
+        <a href="index.html" class="nav-brand">
+          <i class="fa-solid fa-link"></i>
+          NextUrl
+        </a>
+
+        <div class="nav-links" id="nav-links">
+          <a href="index.html">Trang chủ</a>
+          <a href="dashboard.html">Link của tôi</a>
+        </div>
+
+        <div class="nav-actions">
+          <button class="theme-toggle" id="theme-toggle" aria-label="Chuyển đổi giao diện">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+          <div id="auth-actions"></div>
+          <button class="nav-mobile-toggle" id="nav-mobile-toggle" aria-label="Menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="page-content">
+      <div class="auth-page">
+        <div class="card auth-card">
+
+          <h1>Tạo tài khoản</h1>
+          <p class="auth-subtitle">Đăng ký miễn phí để quản lý link rút gọn</p>
+
+          <form id="register-form" autocomplete="off">
+            <!-- Account -->
+            <div class="form-group">
+              <label for="reg-account" class="form-label">Tên tài khoản <span style="color: var(--error);">*</span></label>
+              <input
+                type="text"
+                class="form-input"
+                id="reg-account"
+                placeholder="Nhập tên tài khoản"
+                minlength="3"
+                maxlength="50"
+                required
+                autofocus
+              >
+              <span class="form-hint">Từ 3 đến 50 ký tự, dùng để đăng nhập</span>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+              <label for="reg-password" class="form-label">Mật khẩu <span style="color: var(--error);">*</span></label>
+              <input
+                type="password"
+                class="form-input"
+                id="reg-password"
+                placeholder="Nhập mật khẩu"
+                minlength="6"
+                required
+              >
+              <span class="form-hint">Tối thiểu 6 ký tự</span>
+            </div>
+
+            <!-- User Name -->
+            <div class="form-group">
+              <label for="reg-username" class="form-label">Tên hiển thị <span style="color: var(--error);">*</span></label>
+              <input
+                type="text"
+                class="form-input"
+                id="reg-username"
+                placeholder="Nhập tên hiển thị"
+                maxlength="100"
+                required
+              >
+              <span class="form-hint">Tối đa 100 ký tự</span>
+            </div>
+
+            <!-- Avatar URL (optional) -->
+            <div class="form-group">
+              <label for="reg-avatar" class="form-label">URL ảnh đại diện <span style="color: var(--text-muted);">(Tuỳ chọn)</span></label>
+              <input
+                type="url"
+                class="form-input"
+                id="reg-avatar"
+                placeholder="https://example.com/avatar.jpg"
+              >
+              <span class="form-hint">Đường dẫn đến ảnh đại diện của bạn</span>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+              <i class="fa-solid fa-user-plus"></i>
+              Đăng ký
+            </button>
+          </form>
+
+          <div class="auth-footer">
+            Đã có tài khoản? <a href="login.html">Đăng nhập</a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 <a href="index.html">NextUrl</a> — Rút gọn URL thông minh. Developed by <a href="https://github.com/dargits/nexturl" target="_blank" rel="noopener noreferrer">Shydev</a></p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="js/toast.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

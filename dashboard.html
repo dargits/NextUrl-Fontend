@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Link của tôi — NextUrl</title>
+  <meta name="description" content="Quản lý tất cả link rút gọn của bạn tại một nơi.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-page="dashboard">
+  <div class="page-wrapper">
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+      <div class="container">
+        <a href="index.html" class="nav-brand">
+          <i class="fa-solid fa-link"></i>
+          NextUrl
+        </a>
+
+        <div class="nav-links" id="nav-links">
+          <a href="index.html">Trang chủ</a>
+          <a href="dashboard.html" class="active">Link của tôi</a>
+        </div>
+
+        <div class="nav-actions">
+          <button class="theme-toggle" id="theme-toggle" aria-label="Chuyển đổi giao diện">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+          <div id="auth-actions"></div>
+          <button class="nav-mobile-toggle" id="nav-mobile-toggle" aria-label="Menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="page-content">
+      <div class="container dashboard-page">
+
+        <!-- Header + Search -->
+        <div class="dashboard-header">
+          <h1><i class="fa-solid fa-link" style="color: var(--primary);"></i> Link của tôi</h1>
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Tìm kiếm link..."
+              aria-label="Tìm kiếm link"
+            >
+          </div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="page-loader" id="loading-state">
+          <div class="loader-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state hidden" id="empty-state">
+          <i class="fa-solid fa-link-slash"></i>
+          <h3>Chưa có link nào</h3>
+          <p>Bắt đầu bằng cách tạo link rút gọn đầu tiên của bạn.</p>
+          <a href="index.html" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i> Tạo link mới
+          </a>
+        </div>
+
+        <!-- Table View (Desktop) -->
+        <div class="card table-wrapper" style="padding: 0; overflow: hidden;">
+          <table class="links-table">
+            <thead>
+              <tr>
+                <th>Link rút gọn</th>
+                <th>Link gốc</th>
+                <th>Ngày tạo</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody id="links-table-body">
+              <!-- Render bởi JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Card View (Mobile) -->
+        <div class="links-cards" id="links-cards">
+          <!-- Render bởi JS -->
+        </div>
+
+      </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 <a href="index.html">NextUrl</a> — Rút gọn URL thông minh. Developed by <a href="https://github.com/dargits/nexturl" target="_blank" rel="noopener noreferrer">Shydev</a></p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="js/toast.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

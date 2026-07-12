@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics — NextUrl</title>
+  <meta name="description" content="Xem phân tích chi tiết lượt click cho link rút gọn của bạn.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-page="analytics">
+  <div class="page-wrapper">
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+      <div class="container">
+        <a href="index.html" class="nav-brand">
+          <i class="fa-solid fa-link"></i>
+          NextUrl
+        </a>
+
+        <div class="nav-links" id="nav-links">
+          <a href="index.html">Trang chủ</a>
+          <a href="dashboard.html">Link của tôi</a>
+        </div>
+
+        <div class="nav-actions">
+          <button class="theme-toggle" id="theme-toggle" aria-label="Chuyển đổi giao diện">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+          <div id="auth-actions"></div>
+          <button class="nav-mobile-toggle" id="nav-mobile-toggle" aria-label="Menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="page-content">
+      <div class="container analytics-page">
+
+        <!-- Header -->
+        <div class="analytics-header">
+          <a href="dashboard.html" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i> Quay lại danh sách
+          </a>
+          <h1><i class="fa-solid fa-chart-simple" style="color: var(--primary);"></i> Analytics</h1>
+          <div id="analytics-link-info">
+            <!-- Render bởi JS -->
+          </div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="page-loader" id="loading-state">
+          <div class="loader-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+          <div class="card stat-card">
+            <div class="stat-value" id="stat-total-clicks">—</div>
+            <div class="stat-label">Tổng lượt click</div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-value" id="stat-unique-countries">—</div>
+            <div class="stat-label">Quốc gia</div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-value" id="stat-short-key">—</div>
+            <div class="stat-label">Short Key</div>
+          </div>
+        </div>
+
+        <!-- Chart -->
+        <div class="card chart-card">
+          <h3><i class="fa-solid fa-chart-bar"></i> Lượt click theo quốc gia</h3>
+          <div class="chart-container">
+            <canvas id="analytics-chart"></canvas>
+          </div>
+        </div>
+
+        <!-- Click Logs Table -->
+        <div class="card" style="padding: 0; overflow: hidden;">
+          <div style="padding: var(--space-lg) var(--space-lg) 0;">
+            <h3 style="font-size: 1.1rem; font-weight: 700;"><i class="fa-solid fa-list"></i> Lịch sử click gần đây</h3>
+          </div>
+          <div class="clicks-table-wrapper">
+            <table class="clicks-table">
+              <thead>
+                <tr>
+                  <th>Địa chỉ IP</th>
+                  <th>Quốc gia</th>
+                  <th>Trạng thái</th>
+                  <th>Thời gian</th>
+                </tr>
+              </thead>
+              <tbody id="clicks-table-body">
+                <!-- Render bởi JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 <a href="index.html">NextUrl</a> — Rút gọn URL thông minh. Developed by <a href="https://github.com/dargits/nexturl" target="_blank" rel="noopener noreferrer">Shydev</a></p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="js/toast.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

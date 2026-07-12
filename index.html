@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NextUrl — Rút gọn URL thông minh</title>
+  <meta name="description" content="Rút gọn link nhanh chóng, miễn phí. Theo dõi analytics, quản lý link dễ dàng với NextUrl.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-page="home">
+  <div class="page-wrapper">
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+      <div class="container">
+        <a href="index.html" class="nav-brand">
+          <i class="fa-solid fa-link"></i>
+          NextUrl
+        </a>
+
+        <div class="nav-links" id="nav-links">
+          <a href="index.html" class="active">Trang chủ</a>
+          <a href="dashboard.html">Link của tôi</a>
+        </div>
+
+        <div class="nav-actions">
+          <button class="theme-toggle" id="theme-toggle" aria-label="Chuyển đổi giao diện">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+          <div id="auth-actions">
+            <!-- Sẽ được cập nhật bởi JS -->
+          </div>
+          <button class="nav-mobile-toggle" id="nav-mobile-toggle" aria-label="Menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="page-content">
+
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="container">
+          <div class="hero-badge">
+            <i class="fa-solid fa-bolt"></i>
+            Nhanh chóng &amp; Miễn phí
+          </div>
+
+          <h1>Rút gọn URL<br>thông minh</h1>
+
+          <p class="subtitle">
+            Tạo link ngắn gọn trong tích tắc. Theo dõi lượt click, phân tích truy cập và quản lý mọi link của bạn tại một nơi.
+          </p>
+
+          <!-- URL Input Form -->
+          <form id="shorten-form" autocomplete="off">
+            <div class="url-input-group">
+              <input
+                type="text"
+                class="form-input"
+                id="url-input"
+                placeholder="Dán link cần rút gọn tại đây..."
+                aria-label="URL cần rút gọn"
+                autofocus
+              >
+              <button type="submit" class="btn btn-primary" id="shorten-btn">
+                <i class="fa-solid fa-scissors"></i>
+                Rút gọn ngay
+              </button>
+            </div>
+          </form>
+
+          <!-- Result Section (ẩn mặc định) -->
+          <div id="result-section" class="hidden"></div>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section class="features-section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Tại sao chọn NextUrl?</h2>
+            <p>Công cụ rút gọn URL mạnh mẽ với nhiều tính năng hữu ích</p>
+          </div>
+
+          <div class="features-grid">
+            <!-- Feature 1 -->
+            <div class="card feature-card">
+              <div class="feature-icon">
+                <i class="fa-solid fa-bolt"></i>
+              </div>
+              <h3>Rút gọn siêu nhanh</h3>
+              <p>Tạo link ngắn gọn chỉ trong vài giây. Hỗ trợ cả người dùng ẩn danh lẫn đã đăng ký.</p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="card feature-card">
+              <div class="feature-icon">
+                <i class="fa-solid fa-chart-line"></i>
+              </div>
+              <h3>Analytics chi tiết</h3>
+              <p>Theo dõi lượt click, quốc gia, địa chỉ IP và thời gian truy cập theo thời gian thực.</p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="card feature-card">
+              <div class="feature-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <h3>Bảo mật & Xác thực</h3>
+              <p>Hệ thống xác thực token an toàn. Quản lý link cá nhân với tài khoản riêng.</p>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="card feature-card">
+              <div class="feature-icon">
+                <i class="fa-solid fa-earth-americas"></i>
+              </div>
+              <h3>GeoIP & Redis Cache</h3>
+              <p>Nhận diện quốc gia qua IP, cache thông minh với Redis để tối ưu tốc độ redirect.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 <a href="index.html">NextUrl</a> — Rút gọn URL thông minh. Developed by <a href="https://github.com/dargits/nexturl" target="_blank" rel="noopener noreferrer">Shydev</a></p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ===== QR CODE MODAL ===== -->
+  <div class="modal-overlay" id="qr-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-qrcode"></i> Mã QR</h3>
+        <button class="btn btn-ghost btn-icon" onclick="closeQRModal()" aria-label="Đóng">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img class="qr-image" src="" alt="QR Code" width="200" height="200">
+        <p class="qr-url"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="js/toast.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

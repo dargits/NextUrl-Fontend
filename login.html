@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng nhập — NextUrl</title>
+  <meta name="description" content="Đăng nhập vào tài khoản NextUrl để quản lý link rút gọn của bạn.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-page="login">
+  <div class="page-wrapper">
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+      <div class="container">
+        <a href="index.html" class="nav-brand">
+          <i class="fa-solid fa-link"></i>
+          NextUrl
+        </a>
+
+        <div class="nav-links" id="nav-links">
+          <a href="index.html">Trang chủ</a>
+          <a href="dashboard.html">Link của tôi</a>
+        </div>
+
+        <div class="nav-actions">
+          <button class="theme-toggle" id="theme-toggle" aria-label="Chuyển đổi giao diện">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+          <div id="auth-actions"></div>
+          <button class="nav-mobile-toggle" id="nav-mobile-toggle" aria-label="Menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="page-content">
+      <div class="auth-page">
+        <div class="card auth-card">
+
+          <h1>Chào mừng trở lại!</h1>
+          <p class="auth-subtitle">Đăng nhập để quản lý link rút gọn của bạn</p>
+
+          <form id="login-form" autocomplete="off">
+            <!-- Account -->
+            <div class="form-group">
+              <label for="login-account" class="form-label">Tên tài khoản</label>
+              <input
+                type="text"
+                class="form-input"
+                id="login-account"
+                placeholder="Nhập tên tài khoản (3–50 ký tự)"
+                minlength="3"
+                maxlength="50"
+                required
+                autofocus
+              >
+              <span class="form-hint">Từ 3 đến 50 ký tự</span>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+              <label for="login-password" class="form-label">Mật khẩu</label>
+              <input
+                type="password"
+                class="form-input"
+                id="login-password"
+                placeholder="Nhập mật khẩu (tối thiểu 6 ký tự)"
+                minlength="6"
+                required
+              >
+              <span class="form-hint">Tối thiểu 6 ký tự</span>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+              <i class="fa-solid fa-right-to-bracket"></i>
+              Đăng nhập
+            </button>
+          </form>
+
+          <div class="auth-footer">
+            Chưa có tài khoản? <a href="register.html">Đăng ký ngay</a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 <a href="index.html">NextUrl</a> — Rút gọn URL thông minh. Developed by <a href="https://github.com/dargits/nexturl" target="_blank" rel="noopener noreferrer">Shydev</a></p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="js/toast.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

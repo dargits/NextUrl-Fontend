@@ -1,0 +1,264 @@
+/* ============================================
+   RESPONSIVE STYLES
+   Breakpoints: Mobile (<480px), Tablet (480–1024px), Desktop (>1024px)
+   ============================================ */
+
+/* ============================================
+   TABLET & BELOW (max-width: 1024px)
+   ============================================ */
+@media (max-width: 1024px) {
+  /* Features grid: 2 columns */
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Stats grid: 3 columns still */
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Hero */
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero .subtitle {
+    font-size: 1.05rem;
+  }
+
+  /* Dashboard search */
+  .dashboard-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-box {
+    min-width: unset;
+  }
+}
+
+/* ============================================
+   MOBILE-LANDSCAPE & TABLET (max-width: 768px)
+   ============================================ */
+@media (max-width: 768px) {
+  :root {
+    --nav-height: 64px;
+  }
+
+  /* Navbar: show mobile toggle, hide desktop links */
+  .nav-links {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-light);
+    flex-direction: column;
+    padding: var(--space-md) var(--space-lg);
+    gap: var(--space-sm);
+    transform: translateY(-120%);
+    opacity: 0;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+    z-index: 999;
+  }
+
+  .nav-links.open {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .nav-links a {
+    width: 100%;
+    padding: var(--space-md);
+    text-align: center;
+  }
+
+  .nav-mobile-toggle {
+    display: flex;
+  }
+
+  /* Hero */
+  .hero {
+    padding: var(--space-3xl) 0 var(--space-2xl);
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero .subtitle {
+    font-size: 0.95rem;
+  }
+
+  /* URL input: stack vertical */
+  .url-input-group {
+    flex-direction: column;
+    border-radius: var(--radius-md);
+  }
+
+  .url-input-group .form-input {
+    padding: 16px;
+    font-size: 0.95rem;
+  }
+
+  .url-input-group .btn {
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    padding: 16px;
+  }
+
+  /* Dashboard: hide table, show cards */
+  .table-wrapper {
+    display: none;
+  }
+
+  .links-cards {
+    display: flex;
+  }
+
+  /* Stats grid: stack */
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Toast */
+  .toast-container {
+    left: 16px;
+    right: 16px;
+  }
+
+  .toast {
+    min-width: unset;
+    max-width: unset;
+    width: 100%;
+  }
+
+  /* Auth card */
+  .auth-card {
+    padding: var(--space-xl);
+  }
+
+  /* Result card */
+  .result-card {
+    padding: var(--space-lg);
+  }
+
+  .result-actions {
+    flex-direction: column;
+  }
+
+  .result-actions .btn {
+    width: 100%;
+  }
+
+  /* Section headers */
+  .section-header h2 {
+    font-size: 1.6rem;
+  }
+
+  /* Clicks table scroll */
+  .clicks-table-wrapper {
+    margin: 0 calc(-1 * var(--space-lg));
+    padding: 0 var(--space-lg);
+  }
+}
+
+/* ============================================
+   MOBILE (max-width: 480px)
+   ============================================ */
+@media (max-width: 480px) {
+  /* Container padding smaller */
+  .container {
+    padding: 0 var(--space-md);
+  }
+
+  /* Hero */
+  .hero {
+    padding: var(--space-2xl) 0 var(--space-xl);
+  }
+
+  .hero h1 {
+    font-size: 1.65rem;
+  }
+
+  .hero .subtitle {
+    font-size: 0.9rem;
+    margin-bottom: var(--space-xl);
+  }
+
+  .hero-badge {
+    font-size: 0.8rem;
+  }
+
+  /* Features grid: single column */
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Auth */
+  .auth-page {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .auth-card {
+    padding: var(--space-lg);
+  }
+
+  .auth-card h1 {
+    font-size: 1.5rem;
+  }
+
+  /* Dashboard */
+  .dashboard-header h1 {
+    font-size: 1.4rem;
+  }
+
+  /* Analytics */
+  .analytics-header h1 {
+    font-size: 1.4rem;
+  }
+
+  .stat-card .stat-value {
+    font-size: 1.8rem;
+  }
+
+  /* Buttons */
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .btn-lg {
+    padding: 14px 24px;
+    font-size: 1rem;
+  }
+
+  /* Form inputs */
+  .form-input {
+    padding: 12px 14px;
+  }
+
+  /* Modal */
+  .modal {
+    padding: var(--space-lg);
+    width: 95%;
+  }
+
+  /* Nav brand */
+  .nav-brand {
+    font-size: 1.25rem;
+  }
+}
+
+/* ============================================
+   DESKTOP LARGE (min-width: 1440px)
+   ============================================ */
+@media (min-width: 1440px) {
+  .hero h1 {
+    font-size: 3.6rem;
+  }
+
+  .hero .subtitle {
+    font-size: 1.25rem;
+  }
+}
