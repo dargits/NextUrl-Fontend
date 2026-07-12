@@ -239,7 +239,12 @@ function displayResult(data, originalUrl) {
   if (!resultSection) return;
 
   // Xây dựng short URL
-  const shortKey = data.shortKey || data.shortUrl || data.key || '';
+  let shortKey = '';
+  if (typeof data === 'string') {
+    shortKey = data;
+  } else if (data) {
+    shortKey = data.shortKey || data.shortUrl || data.key || data.short_link || data.custom_link || '';
+  }
   const shortUrl = shortKey.startsWith('http') ? shortKey : buildShortUrl(shortKey);
 
   resultSection.innerHTML = `
@@ -315,7 +320,14 @@ function initLoginPage() {
 
       if (response.code === 200) {
         // Lưu token
-        const token = response.data?.token || response.data;
+        let token = '';
+        if (typeof response.data === 'string') {
+          token = response.data;
+        } else if (response.data) {
+          token = response.data.token || response.data.accessToken || response.data.jwt || response.data.id || JSON.stringify(response.data);
+        } else if (response.token) {
+          token = response.token;
+        }
         setToken(token);
 
         // Lưu user info nếu có
@@ -429,6 +441,72 @@ function initDashboardPage() {
 
   loadMyLinks();
 
+  // Create link with alias
+  const shortenForm = document.getElementById('dashboard-shorten-form');
+  if (shortenForm) {
+    shortenForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const originalUrl = document.getElementById('dash-url-input').value.trim();
+      const alias = document.getElementById('dash-alias-input').value.trim();
+      const submitBtn = document.getElementById('dash-shorten-btn');
+      
+      if (!originalUrl || !isValidUrl(originalUrl)) {
+        showToast('error', 'URL không hợp lệ!');
+        return;
+      }
+      if (alias && (alias.length < 6 || alias.length > 10)) {
+        showToast('error', 'Alias phải từ 6 đến 10 ký tự!');
+        return;
+      }
+      
+      setButtonLoading(submitBtn, true);
+      try {
+        const token = getToken();
+        const payload = { original_link: originalUrl };
+        if (alias) payload.custom_link = alias;
+        
+        const response = await createShortLink(payload, token);
+        
+        if (response.code === 200 || response.code === 201) {
+          showToast('success', 'Tạo link rút gọn thành công!');
+          document.getElementById('dash-url-input').value = '';
+          document.getElementById('dash-alias-input').value = '';
+          
+          const data = response.data;
+          let shortKey = '';
+          if (typeof data === 'string') {
+            shortKey = data;
+          } else if (data) {
+            shortKey = data.shortKey || data.shortUrl || data.key || data.short_link || data.custom_link || '';
+          }
+          const shortUrl = shortKey.startsWith('http') ? shortKey : buildShortUrl(shortKey);
+          
+          const resultSection = document.getElementById('dash-result-section');
+          resultSection.innerHTML = `
+            <div class="result-card" style="margin:0;">
+              <div class="short-url" style="word-break: break-all;">${shortUrl}</div>
+              <div class="result-actions" style="margin-top: 10px;">
+                <button class="btn btn-primary btn-sm" onclick="copyToClipboard('${shortUrl}')">
+                  <i class="fa-solid fa-copy"></i> Sao chép
+                </button>
+              </div>
+            </div>
+          `;
+          resultSection.classList.remove('hidden');
+          
+          // Tải lại danh sách
+          loadMyLinks();
+        } else {
+          handleApiResponse(response);
+        }
+      } catch (error) {
+        // Lỗi network đã được xử lý chung
+      } finally {
+        setButtonLoading(submitBtn, false);
+      }
+    });
+  }
+
   // Search / filter
   const searchInput = document.getElementById('search-input');
   if (searchInput) {
@@ -481,7 +559,7 @@ function renderLinksTable(links) {
   if (!tableBody) return;
 
   tableBody.innerHTML = links.map(link => {
-    const shortKey = link.shortKey || link.key || '';
+    const shortKey = link.shortKey || link.key || link.short_link || link.custom_link || '';
     const shortUrl = shortKey.startsWith('http') ? shortKey : buildShortUrl(shortKey);
     const originalUrl = link.originalUrl || link.original_url || link.url || '';
     const date = formatDate(link.createdAt || link.created_at || link.createTime);
@@ -517,7 +595,7 @@ function renderLinksCards(links) {
   if (!container) return;
 
   container.innerHTML = links.map(link => {
-    const shortKey = link.shortKey || link.key || '';
+    const shortKey = link.shortKey || link.key || link.short_link || link.custom_link || '';
     const shortUrl = shortKey.startsWith('http') ? shortKey : buildShortUrl(shortKey);
     const originalUrl = link.originalUrl || link.original_url || link.url || '';
     const date = formatDate(link.createdAt || link.created_at || link.createTime);
@@ -615,8 +693,11 @@ async function loadAnalytics(linkId) {
 
 /** Render dữ liệu analytics */
 function renderAnalytics(data) {
+  // Debug: Log toàn bộ data để kiểm tra
+  console.log('Analytics data received:', data);
+  
   // Header info
-  const shortKey = data.shortKey || data.key || '';
+  const shortKey = data.shortKey || data.key || data.short_link || data.custom_link || '';
   const shortUrl = shortKey.startsWith('http') ? shortKey : buildShortUrl(shortKey);
   const originalUrl = data.originalUrl || data.original_url || data.url || '';
 
@@ -630,7 +711,12 @@ function renderAnalytics(data) {
 
   // Stats
   const totalClicks = data.totalClicks || data.total_clicks || 0;
-  const clickLogs = data.clickLogs || data.click_logs || data.clicks || [];
+  const clickLogs = data.clickLogs || data.click_logs || data.clicks || data.recentClicks || [];
+  
+  // Debug: Log clickLogs để kiểm tra
+  console.log('Click logs extracted:', clickLogs);
+  console.log('Click logs length:', clickLogs.length);
+  
   const uniqueCountries = [...new Set(clickLogs.map(c => c.country || c.countryName || 'Unknown'))];
 
   document.getElementById('stat-total-clicks').textContent = totalClicks;
@@ -644,12 +730,36 @@ function renderAnalytics(data) {
   renderChart(clickLogs);
 }
 
+// Test function - có thể gọi từ console để test
+window.testClickLogs = function() {
+  const testData = [
+    {
+      "clickedAt": "2026-07-12T06:43:57.103221",
+      "country": "Vietnam", 
+      "ipAddress": "171.242.209.176",
+      "status": "SUCCESS"
+    }
+  ];
+  
+  console.log('Testing with sample data:', testData);
+  renderClickLogs(testData);
+};
+
 /** Render bảng click logs */
 function renderClickLogs(logs) {
+  // Debug: Log để kiểm tra dữ liệu đầu vào
+  console.log('renderClickLogs called with:', logs);
+  console.log('Is logs an array?', Array.isArray(logs));
+  console.log('Logs length:', logs ? logs.length : 'undefined');
+  
   const tbody = document.getElementById('clicks-table-body');
-  if (!tbody) return;
+  if (!tbody) {
+    console.error('Table body element not found!');
+    return;
+  }
 
-  if (logs.length === 0) {
+  if (!logs || logs.length === 0) {
+    console.log('No click logs to display');
     tbody.innerHTML = `
       <tr>
         <td colspan="4" style="text-align: center; color: var(--text-muted); padding: 48px;">
@@ -660,7 +770,10 @@ function renderClickLogs(logs) {
     return;
   }
 
-  tbody.innerHTML = logs.map(log => {
+  console.log('Rendering', logs.length, 'click logs');
+  tbody.innerHTML = logs.map((log, index) => {
+    console.log(`Processing log ${index}:`, log);
+    
     const ip = log.ipAddress || log.ip || '—';
     const country = log.country || log.countryName || 'Unknown';
     const status = log.status || 'SUCCESS';
@@ -676,6 +789,8 @@ function renderClickLogs(logs) {
       </tr>
     `;
   }).join('');
+  
+  console.log('Click logs table rendered successfully');
 }
 
 /** Vẽ biểu đồ click theo quốc gia (Chart.js) */

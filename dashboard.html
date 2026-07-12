@@ -67,6 +67,26 @@
           </div>
         </div>
 
+        <!-- Create Link Card -->
+        <div class="card" style="margin-bottom: 2rem;">
+          <h2 style="margin-bottom: 1rem; font-size: 1.25rem;">Rút gọn link mới</h2>
+          <form id="dashboard-shorten-form" class="form-group" style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 0;">
+            <div style="flex: 1; min-width: 250px;">
+              <input type="url" id="dash-url-input" class="form-input" placeholder="Nhập URL dài (VD: https://example.com)" required>
+            </div>
+            <div style="flex: 0 1 250px;">
+              <input type="text" id="dash-alias-input" class="form-input" placeholder="Alias (6-10 ký tự, tuỳ chọn)">
+            </div>
+            <button type="submit" id="dash-shorten-btn" class="btn btn-primary" style="white-space: nowrap;">
+              <i class="fa-solid fa-scissors"></i> Rút gọn
+            </button>
+          </form>
+          
+          <div id="dash-result-section" class="hidden" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
+            <!-- Render kết quả -->
+          </div>
+        </div>
+
         <!-- Loading State -->
         <div class="page-loader" id="loading-state">
           <div class="loader-dots">
