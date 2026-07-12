@@ -49,10 +49,12 @@ function getToken() {
     if (!token) {
       // Fallback: thử lấy từ sessionStorage
       token = sessionStorage.getItem(TOKEN_KEY);
-      console.log('Token retrieved from sessionStorage fallback');
+      if (token) {
+        console.log('Token retrieved from sessionStorage fallback');
+      }
     }
     
-    if (!token) {
+    if (!token && window.tempToken) {
       // Fallback cuối: lấy từ memory
       token = window.tempToken;
       console.log('Token retrieved from memory fallback');
@@ -64,7 +66,11 @@ function getToken() {
     
     // Thử fallback methods
     try {
-      return sessionStorage.getItem(TOKEN_KEY) || window.tempToken || null;
+      const fallbackToken = sessionStorage.getItem(TOKEN_KEY) || window.tempToken || null;
+      if (fallbackToken) {
+        console.log('Token retrieved from error fallback');
+      }
+      return fallbackToken;
     } catch (fallbackError) {
       console.error('All token retrieval methods failed:', fallbackError);
       return null;
@@ -293,6 +299,8 @@ window.debugAuth = {
   },
   
   testTokenStorage: function() {
+    // Backup current token if exists
+    const currentToken = getToken();
     const testToken = 'test_token_' + Date.now();
     console.log('Testing token storage...');
     
@@ -303,13 +311,20 @@ window.debugAuth = {
     console.log('Retrieved token:', retrieved);
     console.log('Storage test:', testToken === retrieved ? 'PASSED' : 'FAILED');
     
-    // Clean up
-    removeToken();
+    // Restore previous token if it existed
+    if (currentToken) {
+      setToken(currentToken);
+      console.log('Previous token restored');
+    } else {
+      removeToken();
+      console.log('No previous token to restore');
+    }
   },
   
   getCurrentToken: function() {
     const token = getToken();
     console.log('Current token:', token);
+    console.log('Token exists:', !!token);
     return token;
   },
   
@@ -317,5 +332,23 @@ window.debugAuth = {
     const user = getUserInfo();
     console.log('Current user:', user);
     return user;
+  },
+  
+  checkAllStorages: function() {
+    console.log('=== STORAGE CHECK ===');
+    try {
+      console.log('localStorage token:', localStorage.getItem(TOKEN_KEY));
+    } catch (e) {
+      console.log('localStorage error:', e.message);
+    }
+    
+    try {
+      console.log('sessionStorage token:', sessionStorage.getItem(TOKEN_KEY));
+    } catch (e) {
+      console.log('sessionStorage error:', e.message);
+    }
+    
+    console.log('memory token:', window.tempToken);
+    console.log('getToken() result:', getToken());
   }
 };
