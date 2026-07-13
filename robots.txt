@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /register.html
+Disallow: /dashboard.html
+Disallow: /login.html
+Disallow: /analytics.html
+Disallow: /js/
+Disallow: /css/
+Allow: /css/style.css
+Allow: /css/responsive.css
+
+# Sitemap
+Sitemap: https://nexturrl.vercel.app/sitemap.xml
+
+# Crawl delay for polite bots
+Crawl-delay: 1

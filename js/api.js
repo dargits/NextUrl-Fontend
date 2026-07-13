@@ -4,7 +4,7 @@
    ============================================ */
 
 /** Base URL của backend — đổi tại đây khi deploy */
-const API_BASE_URL = 'https://roadtosemv.onrender.com';
+const API_BASE_URL = 'https://nexturl.onrender.com';
 
 /**
  * Hàm gọi API chung — xử lý JSON parse, error codes, network errors
