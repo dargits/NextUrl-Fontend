@@ -1,33 +1,38 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NextUrl — Rút gọn URL thông minh | Tool rút gọn link miễn phí</title>
-  <meta name="description" content="Rút gọn link nhanh chóng, miễn phí với NextUrl. Theo dõi analytics chi tiết, quản lý link dễ dàng. Hỗ trợ QR code, GeoIP và bảo mật cao.">
-  <meta name="keywords" content="rút gọn link, url shortener, rút gọn url, tinyurl, bitly, link ngắn, analytics, qr code, việt nam">
-  
+  <meta name="description"
+    content="Rút gọn link nhanh chóng, miễn phí với NextUrl. Theo dõi analytics chi tiết, quản lý link dễ dàng. Hỗ trợ QR code, GeoIP và bảo mật cao.">
+  <meta name="keywords"
+    content="rút gọn link, url shortener, rút gọn url, tinyurl, bitly, link ngắn, analytics, qr code, việt nam">
+
   <!-- SEO Meta Tags -->
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="author" content="Shydev">
   <link rel="canonical" href="https://nexturrl.vercel.app/">
-  
+
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://nexturrl.vercel.app/">
   <meta property="og:title" content="NextUrl — Rút gọn URL thông minh">
-  <meta property="og:description" content="Rút gọn link nhanh chóng, miễn phí. Theo dõi analytics chi tiết, quản lý link dễ dàng với NextUrl.">
+  <meta property="og:description"
+    content="Rút gọn link nhanh chóng, miễn phí. Theo dõi analytics chi tiết, quản lý link dễ dàng với NextUrl.">
   <meta property="og:image" content="https://nexturrl.vercel.app/og-image.jpg">
   <meta property="og:site_name" content="NextUrl">
   <meta property="og:locale" content="vi_VN">
-  
+
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://nexturrl.vercel.app/">
   <meta property="twitter:title" content="NextUrl — Rút gọn URL thông minh">
-  <meta property="twitter:description" content="Rút gọn link nhanh chóng, miễn phí. Theo dõi analytics chi tiết, quản lý link dễ dàng với NextUrl.">
+  <meta property="twitter:description"
+    content="Rút gọn link nhanh chóng, miễn phí. Theo dõi analytics chi tiết, quản lý link dễ dàng với NextUrl.">
   <meta property="twitter:image" content="https://nexturrl.vercel.app/og-image.jpg">
-  
+
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
   {
@@ -50,7 +55,7 @@
     }
   }
   </script>
-  
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -93,7 +98,7 @@
   </script>
 
   <meta name="google-site-verification" content="IqotP4w7AHMgTUyURRDj-xvRS4f21QLuhvByTAbkZnU" />
-  
+
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -106,7 +111,8 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -115,6 +121,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
+
 <body data-page="home">
   <div class="page-wrapper">
 
@@ -159,26 +166,39 @@
           <h1>Rút gọn URL<br>thông minh</h1>
 
           <p class="subtitle">
-            Tạo link ngắn gọn trong tích tắc. Theo dõi lượt click, phân tích truy cập và quản lý mọi link của bạn tại một nơi.
+            Tạo link ngắn gọn trong tích tắc. Theo dõi lượt click, phân tích truy cập và quản lý mọi link của bạn tại
+            một nơi.
           </p>
 
           <!-- URL Input Form -->
           <form id="shorten-form" autocomplete="off">
             <div class="url-input-group">
-              <input
-                type="text"
-                class="form-input"
-                id="url-input"
-                placeholder="Dán link cần rút gọn tại đây..."
-                aria-label="URL cần rút gọn"
-                autofocus
-              >
+              <input type="text" class="form-input" id="url-input" placeholder="Dán link cần rút gọn tại đây..."
+                aria-label="URL cần rút gọn" autofocus>
               <button type="submit" class="btn btn-primary" id="shorten-btn">
                 <i class="fa-solid fa-scissors"></i>
                 Rút gọn ngay
               </button>
             </div>
           </form>
+
+          <!-- CTA for Registration -->
+          <div class="cta-registration">
+            <div class="cta-content">
+              <h3><i class="fa-solid fa-star"></i> Đăng ký để nhận thêm tính năng!</h3>
+              <p>✨ Tùy chỉnh alias • 📊 Analytics chi tiết • 🔒 Quản lý link cá nhân</p>
+              <div class="cta-buttons">
+                <a href="register.html" class="btn btn-primary">
+                  <i class="fa-solid fa-user-plus"></i>
+                  Đăng ký miễn phí
+                </a>
+                <a href="login.html" class="btn btn-outline">
+                  <i class="fa-solid fa-sign-in-alt"></i>
+                  Đã có tài khoản?
+                </a>
+              </div>
+            </div>
+          </div>
 
           <!-- Result Section (ẩn mặc định) -->
           <div id="result-section" class="hidden"></div>
@@ -240,33 +260,41 @@
             <h2>Câu hỏi thường gặp</h2>
             <p>Tìm hiểu thêm về NextUrl</p>
           </div>
-          
+
           <div style="max-width: 800px; margin: 0 auto;">
             <div class="card" style="margin-bottom: 1rem;">
               <details style="padding: 1rem;">
-                <summary style="font-weight: 600; cursor: pointer; margin-bottom: 0.5rem;">NextUrl có miễn phí không?</summary>
-                <p style="margin: 0; color: var(--text-secondary);">Có, NextUrl hoàn toàn miễn phí cho tất cả người dùng. Bạn có thể rút gọn link không giới hạn và xem analytics chi tiết.</p>
+                <summary style="font-weight: 600; cursor: pointer; margin-bottom: 0.5rem;">NextUrl có miễn phí không?
+                </summary>
+                <p style="margin: 0; color: var(--text-secondary);">Có, NextUrl hoàn toàn miễn phí cho tất cả người
+                  dùng. Bạn có thể rút gọn link không giới hạn và xem analytics chi tiết.</p>
               </details>
             </div>
-            
+
             <div class="card" style="margin-bottom: 1rem;">
               <details style="padding: 1rem;">
-                <summary style="font-weight: 600; cursor: pointer; margin-bottom: 0.5rem;">Link rút gọn có tồn tại mãi mãi không?</summary>
-                <p style="margin: 0; color: var(--text-secondary);">Có, tất cả link rút gọn sẽ hoạt động vĩnh viễn. Chúng tôi cam kết duy trì dịch vụ ổn định và đáng tin cậy.</p>
+                <summary style="font-weight: 600; cursor: pointer; margin-bottom: 0.5rem;">Link rút gọn có tồn tại mãi
+                  mãi không?</summary>
+                <p style="margin: 0; color: var(--text-secondary);">Có, tất cả link rút gọn sẽ hoạt động vĩnh viễn.
+                  Chúng tôi cam kết duy trì dịch vụ ổn định và đáng tin cậy.</p>
               </details>
             </div>
-            
+
             <div class="card" style="margin-bottom: 1rem;">
               <details style="padding: 1rem;">
-                <summary style="font-weight: 600; cursor: pointer; margin-bottom: 0.5rem;">Tôi có thể tùy chỉnh alias không?</summary>
-                <p style="margin: 0; color: var(--text-secondary);">Có, với tài khoản đăng ký, bạn có thể tự chọn alias cho link rút gọn (6-10 ký tự). Người dùng ẩn danh sẽ được tạo alias ngẫu nhiên.</p>
+                <summary style="font-weight: 600; cursor: pointer; margin-bottom: 0.5rem;">Tôi có thể tùy chỉnh alias
+                  không?</summary>
+                <p style="margin: 0; color: var(--text-secondary);">Có, với tài khoản đăng ký, bạn có thể tự chọn alias
+                  cho link rút gọn (6-10 ký tự). Người dùng ẩn danh sẽ được tạo alias ngẫu nhiên.</p>
               </details>
             </div>
-            
+
             <div class="card">
               <details style="padding: 1rem;">
-                <summary style="font-weight: 600; cursor: pointer; margin-bottom: 0.5rem;">NextUrl có bảo mật không?</summary>
-                <p style="margin: 0; color: var(--text-secondary);">Có, chúng tôi sử dụng hệ thống xác thực token an toàn, mã hóa dữ liệu và kiểm tra link độc hại để bảo vệ người dùng.</p>
+                <summary style="font-weight: 600; cursor: pointer; margin-bottom: 0.5rem;">NextUrl có bảo mật không?
+                </summary>
+                <p style="margin: 0; color: var(--text-secondary);">Có, chúng tôi sử dụng hệ thống xác thực token an
+                  toàn, mã hóa dữ liệu và kiểm tra link độc hại để bảo vệ người dùng.</p>
               </details>
             </div>
           </div>
@@ -278,7 +306,8 @@
     <!-- ===== FOOTER ===== -->
     <footer class="footer">
       <div class="container">
-        <p>&copy; 2026 <a href="index.html">NextUrl</a> — Rút gọn URL thông minh. Developed by <a href="https://github.com/dargits/nexturl" target="_blank" rel="noopener noreferrer">Shydev</a></p>
+        <p>&copy; 2026 <a href="index.html">NextUrl</a> — Rút gọn URL thông minh. Developed by <a
+            href="https://github.com/dargits/nexturl" target="_blank" rel="noopener noreferrer">Shydev</a></p>
       </div>
     </footer>
 
@@ -306,4 +335,5 @@
   <script src="js/auth.js"></script>
   <script src="js/main.js"></script>
 </body>
+
 </html>

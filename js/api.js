@@ -45,6 +45,49 @@ async function apiRequest(endpoint, options = {}) {
   }
 }
 
+/**
+ * Xử lý API response và hiển thị thông báo phù hợp
+ */
+function handleApiResponse(response) {
+  const message = response.message || response.msg || 'Đã xảy ra lỗi';
+  
+  switch (response.code) {
+    case 400:
+      showToast('error', 'Dữ liệu không hợp lệ', message);
+      break;
+    case 401:
+      showToast('error', 'Phiên đăng nhập đã hết hạn', 'Vui lòng đăng nhập lại');
+      setTimeout(() => {
+        logout();
+      }, 2000);
+      break;
+    case 403:
+      showToast('error', 'Không có quyền truy cập', message);
+      break;
+    case 404:
+      showToast('error', 'Không tìm thấy', message);
+      break;
+    case 409:
+      showToast('warning', 'Xung đột dữ liệu', message);
+      break;
+    case 429:
+      showToast('warning', 'Quá nhiều yêu cầu', 'Vui lòng thử lại sau');
+      break;
+    case 500:
+      showToast('error', 'Lỗi server', 'Vui lòng thử lại sau');
+      break;
+    default:
+      showToast('error', 'Lỗi', message);
+  }
+}
+
+/**
+ * Hiển thị lỗi network
+ */
+function showNetworkError() {
+  showToast('error', 'Lỗi kết nối', 'Không thể kết nối tới server. Kiểm tra kết nối internet.');
+}
+
 /* ============================================
    AUTH ENDPOINTS
    ============================================ */

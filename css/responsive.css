@@ -10,6 +10,7 @@
   /* Features grid: 2 columns */
   .features-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
   }
 
   /* Stats grid: 3 columns still */
@@ -18,12 +19,16 @@
   }
 
   /* Hero */
+  .hero {
+    min-height: 60vh;
+  }
+  
   .hero h1 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
   }
 
   .hero .subtitle {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
   }
 
   /* Dashboard search */
@@ -34,6 +39,12 @@
 
   .search-box {
     min-width: unset;
+  }
+
+  /* CTA buttons responsive */
+  .cta-buttons {
+    flex-direction: row;
+    gap: var(--space-sm);
   }
 }
 
@@ -89,6 +100,19 @@
 
   .hero .subtitle {
     font-size: 0.95rem;
+  }
+
+  /* CTA Registration - Tablet responsive */
+  .cta-registration {
+    margin: var(--space-xl) 0 0;
+  }
+
+  .cta-registration h3 {
+    font-size: 1.2rem;
+  }
+
+  .cta-buttons {
+    gap: var(--space-sm);
   }
 
   /* URL input: stack vertical */
@@ -161,6 +185,17 @@
     margin: 0 calc(-1 * var(--space-lg));
     padding: 0 var(--space-lg);
   }
+
+  /* Dashboard form improvements */
+  .dashboard-page .card form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dashboard-page .card form > div {
+    flex: none !important;
+    min-width: unset !important;
+  }
 }
 
 /* ============================================
@@ -188,6 +223,33 @@
 
   .hero-badge {
     font-size: 0.8rem;
+  }
+
+  /* CTA Registration - Mobile responsive */
+  .cta-registration {
+    margin: var(--space-xl) 0 0;
+    padding: var(--space-lg);
+  }
+
+  .cta-registration h3 {
+    font-size: 1.1rem;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .cta-registration p {
+    font-size: 0.85rem;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-sm);
+  }
+
+  .cta-buttons .btn {
+    min-width: unset;
+    width: 100%;
   }
 
   /* Features grid: single column */
@@ -247,6 +309,23 @@
   /* Nav brand */
   .nav-brand {
     font-size: 1.25rem;
+  }
+
+  /* Better touch targets */
+  .btn-icon {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* URL input group improvements */
+  .url-input-group .form-input {
+    padding: 16px 14px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  .url-input-group .btn {
+    padding: 16px 20px;
+    font-size: 0.9rem;
   }
 }
 

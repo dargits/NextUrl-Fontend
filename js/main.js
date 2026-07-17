@@ -192,8 +192,14 @@ function initHomePage() {
   const urlInput = document.getElementById('url-input');
   const submitBtn = document.getElementById('shorten-btn');
   const resultSection = document.getElementById('result-section');
+  const ctaSection = document.querySelector('.cta-registration');
 
   if (!form) return;
+
+  // Ẩn CTA nếu đã đăng nhập
+  if (isLoggedIn() && ctaSection) {
+    ctaSection.style.display = 'none';
+  }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
