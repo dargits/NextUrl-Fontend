@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initThemeToggle();
   initMobileNav();
   updateNavbar();
+  initModalEvents();
 
   // Detect trang hiện tại
   const page = document.body.dataset.page;
@@ -29,6 +30,26 @@ document.addEventListener('DOMContentLoaded', () => {
       break;
   }
 });
+
+/* ============================================
+   MODAL EVENTS
+   ============================================ */
+function initModalEvents() {
+  // ESC để đóng modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeQRModal();
+    }
+  });
+
+  // Click outside modal để đóng
+  document.addEventListener('click', (e) => {
+    const modal = document.getElementById('qr-modal');
+    if (modal && modal.classList.contains('show') && e.target === modal) {
+      closeQRModal();
+    }
+  });
+}
 
 /* ============================================
    DARK MODE TOGGLE
@@ -119,12 +140,19 @@ function showQRCode(url) {
   qrUrl.textContent = url;
 
   modal.classList.add('show');
+  
+  // Focus vào modal để có thể dùng ESC
+  modal.setAttribute('tabindex', '-1');
+  modal.focus();
 }
 
 /** Đóng QR Code modal */
 function closeQRModal() {
   const modal = document.getElementById('qr-modal');
-  if (modal) modal.classList.remove('show');
+  if (modal) {
+    modal.classList.remove('show');
+    modal.removeAttribute('tabindex');
+  }
 }
 
 /** Chia sẻ link (Web Share API fallback → copy) */
@@ -459,6 +487,14 @@ function initDashboardPage() {
   // Create link with alias
   const shortenForm = document.getElementById('dashboard-shorten-form');
   if (shortenForm) {
+    // Keyboard shortcut: Ctrl+Enter to submit
+    shortenForm.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault();
+        shortenForm.dispatchEvent(new Event('submit'));
+      }
+    });
+
     shortenForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const originalUrl = document.getElementById('dash-url-input').value.trim();
@@ -499,15 +535,30 @@ function initDashboardPage() {
           const resultSection = document.getElementById('dash-result-section');
           resultSection.innerHTML = `
             <div class="result-card" style="margin:0;">
-              <div class="short-url" style="word-break: break-all;">${shortUrl}</div>
-              <div class="result-actions" style="margin-top: 10px;">
+              <div class="short-url" style="word-break: break-all; margin-bottom: 8px;">${shortUrl}</div>
+              <div class="original-url" title="${originalUrl}" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">${originalUrl}</div>
+              <div class="result-actions" style="margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap;">
                 <button class="btn btn-primary btn-sm" onclick="copyToClipboard('${shortUrl}')">
                   <i class="fa-solid fa-copy"></i> Sao chép
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="showQRCode('${shortUrl}')">
+                  <i class="fa-solid fa-qrcode"></i> QR Code
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="shareLink('${shortUrl}')">
+                  <i class="fa-solid fa-share-nodes"></i> Chia sẻ
                 </button>
               </div>
             </div>
           `;
           resultSection.classList.remove('hidden');
+          
+          // Scroll to result section
+          resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          
+          // Focus vào URL input để có thể tạo link tiếp
+          setTimeout(() => {
+            document.getElementById('dash-url-input').focus();
+          }, 500);
           
           // Tải lại danh sách
           loadMyLinks();
@@ -594,6 +645,12 @@ function renderLinksTable(links) {
             <button class="btn btn-ghost btn-icon" onclick="copyToClipboard('${shortUrl}')" title="Sao chép">
               <i class="fa-solid fa-copy"></i>
             </button>
+            <button class="btn btn-ghost btn-icon" onclick="showQRCode('${shortUrl}')" title="QR Code">
+              <i class="fa-solid fa-qrcode"></i>
+            </button>
+            <button class="btn btn-ghost btn-icon" onclick="shareLink('${shortUrl}')" title="Chia sẻ">
+              <i class="fa-solid fa-share-nodes"></i>
+            </button>
             <a href="analytics.html?id=${linkId}" class="btn btn-ghost btn-icon" title="Analytics">
               <i class="fa-solid fa-chart-simple"></i>
             </a>
@@ -625,7 +682,13 @@ function renderLinksCards(links) {
           <button class="btn btn-primary btn-sm" onclick="copyToClipboard('${shortUrl}')">
             <i class="fa-solid fa-copy"></i> Sao chép
           </button>
-          <a href="analytics.html?id=${linkId}" class="btn btn-secondary btn-sm">
+          <button class="btn btn-secondary btn-sm" onclick="showQRCode('${shortUrl}')">
+            <i class="fa-solid fa-qrcode"></i> QR
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="shareLink('${shortUrl}')">
+            <i class="fa-solid fa-share-nodes"></i> Chia sẻ
+          </button>
+          <a href="analytics.html?id=${linkId}" class="btn btn-outline btn-sm">
             <i class="fa-solid fa-chart-simple"></i> Analytics
           </a>
         </div>

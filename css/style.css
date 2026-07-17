@@ -1006,6 +1006,7 @@ input, textarea, select {
 .links-table .link-actions {
   display: flex;
   gap: var(--space-xs);
+  align-items: center;
 }
 
 /* Links card view (mobile) */

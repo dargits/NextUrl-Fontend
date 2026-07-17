@@ -196,6 +196,18 @@
     flex: none !important;
     min-width: unset !important;
   }
+
+  /* Link card actions responsive */
+  .link-card-actions {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm) !important;
+  }
+
+  .link-card-actions .btn {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+  }
 }
 
 /* ============================================

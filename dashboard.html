@@ -79,13 +79,18 @@
 
         <!-- Create Link Card -->
         <div class="card" style="margin-bottom: 2rem;">
-          <h2 style="margin-bottom: 1rem; font-size: 1.25rem;">Rút gọn link mới</h2>
+          <h2 style="margin-bottom: 1rem; font-size: 1.25rem;">
+            Rút gọn link mới 
+            <small style="font-size: 0.75rem; color: var(--text-muted); font-weight: 400;">
+              (Ctrl+Enter để gửi nhanh)
+            </small>
+          </h2>
           <form id="dashboard-shorten-form" class="form-group" style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 0;">
             <div style="flex: 1; min-width: 250px;">
               <input type="url" id="dash-url-input" class="form-input" placeholder="Nhập URL dài (VD: https://example.com)" required>
             </div>
             <div style="flex: 0 1 250px;">
-              <input type="text" id="dash-alias-input" class="form-input" placeholder="Alias (6-10 ký tự, tuỳ chọn)">
+              <input type="text" id="dash-alias-input" class="form-input" placeholder="Alias (6-10 ký tự, tuỳ chọn)" maxlength="10">
             </div>
             <button type="submit" id="dash-shorten-btn" class="btn btn-primary" style="white-space: nowrap;">
               <i class="fa-solid fa-scissors"></i> Rút gọn
@@ -124,7 +129,7 @@
                 <th>Link rút gọn</th>
                 <th>Link gốc</th>
                 <th>Ngày tạo</th>
-                <th>Hành động</th>
+                <th style="min-width: 200px;">Hành động</th>
               </tr>
             </thead>
             <tbody id="links-table-body">
@@ -148,6 +153,22 @@
       </div>
     </footer>
 
+  </div>
+
+  <!-- ===== QR CODE MODAL ===== -->
+  <div class="modal-overlay" id="qr-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-qrcode"></i> Mã QR</h3>
+        <button class="btn btn-ghost btn-icon" onclick="closeQRModal()" aria-label="Đóng">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img class="qr-image" src="" alt="QR Code" width="200" height="200">
+        <p class="qr-url"></p>
+      </div>
+    </div>
   </div>
 
   <!-- ===== SCRIPTS ===== -->
